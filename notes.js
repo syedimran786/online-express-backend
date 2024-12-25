@@ -1,0 +1,3 @@
+//! storing the token in cookies is a good practice because local storage is having cross site scripting problem(XSS)
+//! if we attach cookies to the response object automatically it will be stored in browsers cookies and it will be sent automatically in request object once the user sends the request
+//! pass withcredntials true to your request from axios and credentials to true,origin to the respective front end urls in cors middleware

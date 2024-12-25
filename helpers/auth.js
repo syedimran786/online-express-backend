@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
+const Employee = require('../models/employee.model');
 
 
 let authorization=async (req,res,next)=>
 {
     try
     {
-          console.log("object")
+         
         let token=req.headers.authorization;//!false
 
         if(!token || !token.startsWith("Bearer") )
@@ -14,8 +15,9 @@ let authorization=async (req,res,next)=>
         }
 
         token=token.split(" ")[1]
-        let decoded=jwt.verify(token, "123")
-        req.user=decoded;
+        let decoded=jwt.verify(token, "123")//! decoded is the object which is having the data which is passed at time of token creation
+        let user=await Employee.findById(decoded.userId);
+        req.user=user; //! getting the respective user and assigining the user to req object
       
         next()
     }

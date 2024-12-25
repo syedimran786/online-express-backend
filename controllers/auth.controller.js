@@ -14,8 +14,14 @@ let checkUser=async (req,res,next)=>
             {
                 if(password===employee.password)
                 {
-                   let token= await createJwt({name:employee.name,role:employee.role})
-                    return res.json({error:false,message:"Employee Logged in Successfully",data:{name:employee.name,role:employee.role,token}});
+                   let token= await createJwt({userId:employee._id});
+                   res.cookie("token",token,{
+                    httpOnly:true,
+                    maxAge: 900000,
+                    secure: false,
+                   })
+                    return res.json({error:false,message:"Employee Logged in Successfully",
+                        data:{name:employee.name,role:employee.role,token}});
                 }
                 else
                 {
