@@ -1,5 +1,6 @@
 const createJwt = require('../helpers/createJwt');
 const Employee = require('../models/employee.model');
+const jwt = require('jsonwebtoken');
 
 
 let checkUser=async (req,res,next)=>
@@ -35,6 +36,28 @@ let checkUser=async (req,res,next)=>
         }
     }
 
+    let isLoggedin=async (req,res,next)=>
+    {
+        try
+        {
+            let token=req.cookies.token;
+            if(!token)
+            {
+                // return res.json({error:true,message:"Please Login First",data:null});
+                return res.json(false);
+            }
+            
+            jwt.verify(token, "123")
+            return res.json(true)
+            
+        }
+        catch(err)
+        {
+            return res.json(false);
+        }
+    }
+
     module.exports={
-    checkUser
+    checkUser,
+    isLoggedin
     }

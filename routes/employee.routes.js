@@ -5,7 +5,7 @@ const {
     getSingleEmployee,
     updateEmployee,
     deleteEmployee } = require('../controllers/employee.controller');
-const { checkUser } = require('../controllers/auth.controller');
+const { checkUser, isLoggedin } = require('../controllers/auth.controller');
 const auth = require('../helpers/auth');
 
 let router=express.Router();
@@ -16,6 +16,8 @@ router.get("/getemp/:eid",getSingleEmployee)
 router.put("/updateemp/:eid",updateEmployee)
 router.delete("/deleteemp/:eid",deleteEmployee)
 router.post("/emplogin",checkUser)
+router.get("/isloggin",isLoggedin)
+
 
 module.exports=router;
 
